@@ -37,15 +37,6 @@ export class Api {
     return http(path, init);
   }
 
-  static async put({ path, body, config }) {
-    const init = {
-      method: "put",
-      body: JSON.stringify(body),
-      ...config,
-    };
-    return http(path, init);
-  }
-
   static async delete({ path, body, config }) {
     const init = { method: "delete", body: JSON.stringify(body), ...config };
     return http(path, init);
