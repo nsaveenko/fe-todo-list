@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export async function http(path, config) {
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
