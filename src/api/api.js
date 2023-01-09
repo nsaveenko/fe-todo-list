@@ -1,8 +1,13 @@
-/* eslint-disable no-undef */
+// import tokenService from "services/token.service";
+
 export async function http(path, config) {
+  // eslint-disable-next-line no-undef
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
+  // const accessToken = tokenService.getLocalAccessToken();
+  // const refreshToken = tokenService.getLocalRefreshToken();
 
   config.headers = { "Content-Type": "application/json" };
+  // config.headers = { "Authorization": `Bearer ${accessToken}` };
 
   return fetch(`${baseUrl + path}`, config)
     .then((response) => {

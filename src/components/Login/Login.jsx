@@ -1,12 +1,19 @@
-import Checkbox from "components/shared/Checkbox";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+// import { useHistory } from "react-router-dom";
+import { register } from "state/auth/actionCreators";
+import Checkbox from "components/shared/Checkbox";
+import validateEmail from "utils/validation/validateEmail";
 import "./Login.css";
 
 const Login = ({ pageType }) => {
-  const [email, setEmail] = useState("Input email...");
+  const dispatch = useDispatch();
+  // const history = useHistory();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [passwordInputType, setPasswordInputType] = useState("text");
+  const [error, setError] = useState("");
 
   const onEmailChange = (event) => {
     setEmail(event.target.value);
@@ -18,11 +25,26 @@ const Login = ({ pageType }) => {
 
   const handleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
+    dispatch();
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(email, password);
+
+    if (!validateEmail(email)) {
+      setError("Email is not valid");
+      return;
+    }
+
+    if (password.length < 4) {
+      setError("Password is too short");
+      return;
+    }
+
+    dispatch(register(email, password)).then((data) => {
+      // history.push("/");
+      console.log("DATA", data)
+    })
   };
 
   useEffect(() => {
@@ -41,9 +63,9 @@ const Login = ({ pageType }) => {
           <h3>Email</h3>
           <input
             type="email"
+            placeholder="e-mail"
             value={email}
             onChange={onEmailChange}
-            onClick={() => setEmail("")}
             required
           />
         </label>
@@ -51,9 +73,9 @@ const Login = ({ pageType }) => {
           <h3>Password</h3>
           <input
             type={passwordInputType}
+            placeholder="password"
             value={password}
             onChange={onPasswordChange}
-            onClick={() => setPassword("")}
             required
           />
         </label>
@@ -64,7 +86,7 @@ const Login = ({ pageType }) => {
             title="Show password"
           />
         </label>
-
+        {error && <h4>{error}</h4>}
         <input className="primary-button" type="submit" value="Submit" />
       </form>
     </>

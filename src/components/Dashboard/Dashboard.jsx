@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { useAppDispatch, useAppSelector } from "store/hooks";
+import tokenService from "services/token.service";
 import { fetchTodos } from "state/todo/actionCreators";
 import Header from "components/Header";
 import Calendar from "components/Calendar";
 import TodoList from "components/TodoList";
 import Modal from "components/shared/Modal";
 import SetTodo from "components/SetTodo";
-import { date, currentDay } from "utils/date";
-import { generateTitleByTodoCount, filterTodosByDate } from "utils/todos";
+import { date, currentDay } from "utils/date/date";
+import { generateTitleByTodoCount, filterTodosByDate } from "utils/todo/todos";
 import "./Dashboard.css";
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [todoId, setTodoId] = useState(null);
-  const dispatch = useAppDispatch();
   const [selectedDay, setSelectedDay] = useState(moment().format("MMM Do YY"));
   const [isTodoStateChanged, setIsTodoStateChanged] = useState(false);
   const { todos } = useAppSelector((state) => state.todo);
   const todosByDate = filterTodosByDate(todos, selectedDay);
   const todosCountTitle = generateTitleByTodoCount(todosByDate.length);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const data = tokenService.getUser().userDto;
+    setUser(data);
+    console.log(data)
+  }, []);
 
   useEffect(() => {
     dispatch(fetchTodos());
@@ -39,7 +47,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Header setIsModalOpen={setIsModalOpen} />
+      <Header setIsModalOpen={setIsModalOpen} user={user} />
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} setTodoId={setTodoId}>
           <SetTodo

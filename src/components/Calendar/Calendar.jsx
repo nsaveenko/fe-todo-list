@@ -2,8 +2,8 @@ import React from "react";
 import moment from "moment";
 import Scroll from "components/shared/Scroller";
 import CalendarItem from "components/Calendar/CalendarItem";
-import { weekDays, daysInMonth, month, year, initMonth } from "utils/date";
-import { filterTodosByDate } from "utils/todos";
+import { weekDays, daysInMonth, month, year, initMonth } from "utils/date/date";
+import { filterTodosByDate } from "utils/todo/todos";
 import "./Calendar.css";
 
 const Calendar = ({
