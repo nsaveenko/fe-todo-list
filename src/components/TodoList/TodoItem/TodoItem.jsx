@@ -1,27 +1,27 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "store/hooks";
+import { useDispatch } from "react-redux";
 import { updateCompleted } from "state/todo/actionCreators";
 import "./TodoItem.css";
 
 const TodoItem = ({
-  _id,
+  _id: id,
   title,
   completed,
   setIsTodoStateChanged,
   setTodoId,
   setIsModalOpen,
 }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [isCompleted, setIsCompleted] = useState(completed);
 
   function handleChange() {
     setIsCompleted(!isCompleted);
     setIsTodoStateChanged(true);
-    dispatch(updateCompleted(_id));
+    dispatch(updateCompleted(id));
   }
 
   const openEditTodoModal = () => {
-    setTodoId(_id);
+    setTodoId(id);
     setIsModalOpen(true);
   };
 
@@ -29,12 +29,12 @@ const TodoItem = ({
     <li className="todo">
       <input
         className="custom-checkbox"
-        id={_id}
+        id={id}
         type="checkbox"
         checked={isCompleted}
         onChange={handleChange}
       />
-      <label htmlFor={_id} className="custom-checkbox-label" />
+      <label htmlFor={id} className="custom-checkbox-label" />
       <span
         className="todo-title"
         onClick={openEditTodoModal}

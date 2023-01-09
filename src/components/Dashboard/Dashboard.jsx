@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { useAppDispatch, useAppSelector } from "store/hooks";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchTodos } from "state/todo/actionCreators";
 import Header from "components/Header";
 import Calendar from "components/Calendar";
@@ -14,10 +14,10 @@ import "./Dashboard.css";
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [todoId, setTodoId] = useState(null);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [selectedDay, setSelectedDay] = useState(moment().format("MMM Do YY"));
   const [isTodoStateChanged, setIsTodoStateChanged] = useState(false);
-  const { todos } = useAppSelector((state) => state.todo);
+  const { todos } = useSelector((state) => state.todo);
   const todosByDate = filterTodosByDate(todos, selectedDay);
   const todosCountTitle = generateTitleByTodoCount(todosByDate.length);
 

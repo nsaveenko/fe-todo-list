@@ -13,9 +13,8 @@ const Calendar = ({
   todos,
 }) => {
   function handleDayClick(event) {
-    const currentId = event.currentTarget.id;
     handleSelectedDayChange(
-      moment(`${month}/${currentId}/${year}`).format("MMM Do YY")
+      moment(`${month}/${event.currentTarget.id}/${year}`).format("MMM Do YY")
     );
   }
 

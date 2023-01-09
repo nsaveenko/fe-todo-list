@@ -78,10 +78,10 @@ export const deleteTodo = (id) => async (dispatch) => {
   }
 };
 
-export const editTodo = (id, newTodo) => async (dispatch) => {
+export const editTodo = (id, todo) => async (dispatch) => {
   try {
     dispatch(fetchTodoPending());
-    const result = await updateTodo(id, newTodo);
+    const result = await updateTodo(id, todo);
     dispatch(updateTodoFulfilled(result));
   } catch (error) {
     dispatch(fetchTodoRejected(UPDATE_TODO_ERROR_MESSAGE));
