@@ -6,7 +6,7 @@ export const authApi = {
       path: "signup",
       body: { email, password, role: "user" },
     }),
-  signin: ({ email, password }) =>
+  signin: (email, password) =>
     Api.post({
       path: "signin",
       body: { email, password },

@@ -12,9 +12,7 @@ const {
 export const register = (email, password) => async (dispatch) => {
   try {
     dispatch(pending());
-    console.log("asdfghjk")
     const user = await signup(email, password);
-    console.log("email, password", email, password)
     dispatch(signupFulfilled(user));
     if (user.accessToken) {
       tokenService.setUser(user);

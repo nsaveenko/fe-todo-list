@@ -41,9 +41,8 @@ const Login = ({ pageType }) => {
       return;
     }
 
-    dispatch(register(email, password)).then((data) => {
-      // history.push("/");
-      console.log("DATA", data)
+    dispatch(register(email, password)).then(() => {
+      history.push("/");
     })
   };
 
