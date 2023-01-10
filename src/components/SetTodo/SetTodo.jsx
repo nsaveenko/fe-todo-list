@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import { useAppDispatch, useAppSelector } from "store/hooks";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getTodo,
   createNewTodo,
@@ -19,11 +19,11 @@ const SetTodo = ({
   setTodoId,
   setIsTodoStateChanged,
 }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [date, setDate] = useState(new Date());
-  const { todo, isLoaded } = useAppSelector((state) => state.todo);
+  const { todo, isLoaded } = useSelector((state) => state.todo);
   const submitInputValue = todoId ? "Update" : "Create";
 
   const newTodo = {

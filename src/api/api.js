@@ -9,7 +9,7 @@ export async function http(path, config) {
   config.headers = { "Content-Type": "application/json" };
   // config.headers = { "Authorization": `Bearer ${accessToken}` };
 
-  return fetch(`${baseUrl + path}`, config)
+  return fetch(baseUrl + path, config)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -21,30 +21,30 @@ export async function http(path, config) {
 
 export class Api {
   static async get({ path, config }) {
-    const init = { method: "get", ...config };
-    return http(path, init);
+    const initConfig = { method: "get", ...config };
+    return http(path, initConfig);
   }
 
   static async post({ path, body, config }) {
-    const init = {
+    const initConfig = {
       method: "post",
       body: JSON.stringify(body),
       ...config,
     };
-    return http(path, init);
+    return http(path, initConfig);
   }
 
   static async put({ path, body, config }) {
-    const init = {
+    const initConfig = {
       method: "put",
       body: JSON.stringify(body),
       ...config,
     };
-    return http(path, init);
+    return http(path, initConfig);
   }
 
-  static async delete({ path, body, config }) {
-    const init = { method: "delete", body: JSON.stringify(body), ...config };
-    return http(path, init);
+  static async delete({ path, config }) {
+    const initConfig = { method: "delete", ...config };
+    return http(path, initConfig);
   }
 }
